@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agendar Turno - Clínica Sanitaria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="formularioTurno.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <div style="display: flex; align-items: center;">
+            <img src="logo.png" alt="Logo Vitalis" style="height: 70px; margin-right: 14px;">
+            <span style="font-size: 1.6rem; font-weight: bold;">Clínica Sanitaria</span>
+        </div>
+        <nav>
+            <a href="#">Inicio</a>
+            <a href="#">Acerca de nosotros</a>
+            <a href="#">Iniciar sesión</a>
+            <a href="#">Salir</a>
+        </nav>
+    </header>
+
+    <section class="formulario-turno">
+        <h2>Agendar Turno Médico</h2>
+        <form>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="especialidad">Especialidad:</label>
+                    <select id="especialidad" name="especialidad" required>
+                        <option value="">Seleccionar</option>
+                        <option value="cardiologia">Cardiología</option>
+                        <option value="dermatologia">Dermatología</option>
+                        <option value="clinica">Clínica médica</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="doctor">Doctor:</label>
+                    <select id="doctor" name="doctor" required>
+                        <option value="">Seleccionar especialidad primero</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha">Fecha disponible:</label>
+                    <select id="fecha" name="fecha" required>
+                        <option value="">Seleccionar doctor primero</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="hora">Horario disponible:</label>
+                    <select id="hora" name="hora" required>
+                        <option value="">Seleccionar fecha primero</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="nota">Nota adicional (opcional):</label>
+                    <textarea id="nota" name="nota" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" onclick="confirmarTurno()">Confirmar Turno</button>
+            </div>
+        </form>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div>
+                <strong>Contacto</strong><br>
+                Tel: (0371) 123-4567<br>
+                Email: info@clinicavitalis.com
+            </div>
+            <div>
+                © 2025 Clínica Vitalis. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+  
+  
+
+</body>
+
+</html>

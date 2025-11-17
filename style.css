@@ -1,0 +1,225 @@
+/* FALTA LO RESPONSIVE */
+
+
+body {
+     background-color: white;
+     /* celeste muy claro */
+     font-family: 'Segoe UI', sans-serif;
+     color: #333;
+     margin: 0
+ }
+
+ header {
+
+     color: white;
+     padding: 1rem 2rem;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+
+ nav a {
+     color: #0077b6;
+     margin-left: 1rem;
+     text-decoration: none;
+     font-weight: bold;
+     position: relative;
+     transition: color 0.3s ease;
+ }
+
+ nav a::after {
+     content: '';
+     position: absolute;
+     width: 0%;
+     height: 2px;
+     bottom: -4px;
+     left: 0;
+     background-color: #90e0ef;
+     transition: width 0.3s ease;
+ }
+
+ nav a:hover {
+     color: #90e0ef;
+ }
+
+ nav a:hover::after {
+     width: 100%;
+ }
+
+ .hero {
+
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 2rem;
+     background-color: #e0f2f1;
+     min-height: 300px;
+     /* altura deseada */
+     border-left: 4px solid #0077b6;
+     /* línea azul lateral */
+     border-radius: 8px;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+     /* sombra suave y difusa */
+
+ }
+
+ .hero-img-container {
+
+     flex: 1;
+     display: flex;
+     align-items: flex-end;
+     /* alinea la imagen abajo */
+     justify-content: center;
+     padding-bottom: 0;
+     /* asegurate que no haya espacio extra */
+
+ }
+
+ .hero-img {
+     width: 100%;
+     height: auto;
+     max-height: 100%;
+     object-fit: cover;
+     border-radius: 0 0 8px 8px;
+     /* solo bordes inferiores redondeados */
+     margin-bottom: 0;
+
+     position: relative;
+     bottom: -30px;
+ }
+
+
+
+ .hero-text {
+     max-width: 50%;
+     padding: 1rem 1rem;
+ }
+
+ .hero-text h1 {
+     color: #0077b6;
+
+ }
+
+ .hero-text p {
+     font-size: 1.1rem;
+ }
+
+ .hero-buttons button {
+     margin-right: 1rem;
+     padding: 0.8rem 1.5rem;
+     border: none;
+     background-color: #0077b6;
+     color: white;
+     font-weight: bold;
+     cursor: pointer;
+     border-radius: 5px;
+     transition: background-color 0.3s ease, transform 0.3s ease;
+ }
+
+ .hero-buttons button:hover {
+     background-color: #48bfe3;
+     transform: scale(1.03);
+ }
+
+ .especialidades {
+     display: flex;
+     justify-content: space-around;
+     padding: 2rem;
+     background-color: #ffffff;
+ }
+
+ .especialidad {
+     width: 30%;
+     background-color: #f1f1f1;
+     padding: 1rem;
+     border-radius: 8px;
+     text-align: center;
+     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+ }
+
+ .especialidad:hover {
+     background-color: #d0eaff;
+     box-shadow: 0 0 10px rgba(0, 119, 182, 0.2);
+     transform: scale(1.03);
+ }
+
+ .especialidad i {
+     font-size: 2rem;
+     color: #0077b6;
+     margin-bottom: 0.5rem;
+ }
+
+
+ .info-block {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     background-color: white;
+     padding: 2rem;
+     margin: 2rem auto;
+     max-width: 1200px;
+     background-color: white;
+     margin: 2rem auto;
+     padding: 2rem;
+     max-width: 1200px;
+     border-left: 4px solid #0077b6;
+     /* línea azul lateral */
+     border-radius: 8px;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+     /* sombra suave y difusa */
+ }
+
+
+ .info-text {
+     flex: 1;
+     font-size: 1rem;
+     color: #023e8a;
+     padding: 1rem 1rem;
+ }
+
+ .info-text h2 {
+     font-size: 1.6rem;
+     margin-bottom: 1rem;
+     color: #0077b6;
+ }
+
+ .info-img {
+     flex: 1;
+     display: flex;
+     justify-content: center;
+     position: relative;
+     bottom: -30px;
+ }
+
+ .info-img img {
+     width: 100%;
+     max-width: 600px;
+     height: auto;
+     border-radius: 8px;
+     object-fit: cover;
+ }
+
+ footer {
+     background-color: #023e8a;
+     color: white;
+     padding: 2rem;
+     text-align: center;
+ }
+
+ footer .footer-container {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 1rem;
+ }
+
+ footer .footer-container div {
+     margin-bottom: 0.5rem;
+ }
+
+ footer a {
+     color: white;
+     text-decoration: none;
+     margin: 0 0.5rem;
+ }

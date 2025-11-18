@@ -1,0 +1,79 @@
+.login-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+  background-color: #e0f2f1;
+  min-height: 400px;
+}
+
+.login-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-container h2 {
+  text-align: center;
+  color: #0077b6;
+  margin-bottom: 1.5rem;
+}
+
+.login-container .form-group {
+  margin-bottom: 1rem;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #023e8a;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-container .form-actions {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.login-container button {
+  background-color: #0077b6;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: #48bfe3;
+  transform: scale(1.03);
+}
+
+.registro-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.registro-link a {
+  color: #0077b6;
+  text-decoration: none;
+  font-weight: bold;
+}
+.error-text {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}

@@ -82,6 +82,8 @@ fechaSelect.addEventListener('change', () => {
 // también tiene que permitir descargar la información en PDF (en proceso)
 function confirmarTurno() {
     const nombre = document.getElementById('nombre').value;
+    const apellido = document.getElementById('apellido').value;
+    const dni = document.getElementById('dni').value;   
     const email = document.getElementById('email').value;
     const especialidad = document.getElementById('especialidad').value;
     const doctor = document.getElementById('doctor').value;
@@ -129,6 +131,8 @@ function confirmarTurno() {
       <body>
         <h2>Confirmación de turno</h2>
         <p><strong>Nombre:</strong> ${nombre}</p>
+        <p><strong>Apellido:</strong> ${apellido}</p>
+        <p><strong>DNI:</strong> ${dni}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Especialidad:</strong> ${especialidad}</p>
         <p><strong>Doctor:</strong> ${doctor}</p>

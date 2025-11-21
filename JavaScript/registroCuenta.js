@@ -21,7 +21,7 @@ function validarRegistroCompleto() {
       name: nombre, 
       email: email,
       password: clave,
-      role: "Paciente" 
+      role: "USUARIO" 
     };
 
     try {

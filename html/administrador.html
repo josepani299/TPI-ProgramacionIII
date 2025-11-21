@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panel de Administración - Clínica Vitalis</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="/js/registroUsuarios.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="/js/registroUsuarios.js" defer></script>
+    <script src="/js/turnos.js" defer></script>
+    <script src="/js/appointments.js" defer></script>
+
+</head>
+
+<body>
+
+    <header>
+        <div style="display: flex; align-items: center;">
+            <img src="/imagenes/logo.png" alt="Logo Vitalis" style="height: 70px; margin-right: 14px;" />
+            <span style="font-size: 1.6rem; font-weight: bold;">Clínica Vitalis</span>
+        </div>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="admin.html">Panel Admin</a>
+            <a href="#" onclick="confirmarSalida()">Salir</a>
+        </nav>
+    </header>
+
+    <main class="admin-panel">
+        <h2>Panel de Administración</h2>
+
+        <!-- Sección Usuarios -->
+        <section>
+            <h3>Gestión de Usuarios</h3>
+
+            <form id="crear-usuario-form">
+                <input type="text" placeholder="Nombre" id="nuevo-nombre" required />
+                <input type="email" placeholder="Email" id="nuevo-email" required />
+                <input type="password" placeholder="Contraseña" id="nuevo-password" required />
+                <select id="nuevo-role">
+                    <option value="USUARIO">Usuario</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+                <button type="submit">Crear</button> <br>
+            </form>
+            <div id="usuarios-container"></div>
+            <div id="pacientes-container"></div>
+
+        </section>
+
+        <!-- Sección Médicos -->
+        <section>
+            <h3>Gestión de Médicos</h3>
+            <div id="medicos-container"></div>
+            <form id="crear-medico-form">
+                <input type="text" placeholder="Nombre" id="medico-nombre" required />
+                <input type="text" placeholder="Especialidad" id="medico-especialidad" required />
+                <div id="medico-dias"></div>
+                <input type="text" placeholder="Horarios disponibles" id="medico-horarios" required />
+                <button type="submit">Agregar Médico</button>
+            </form>
+        </section>
+
+        <!-- Sección Turnos -->
+        <section>
+            <h3>Gestión de Turnos</h3>
+            <div id="appointments-container"></div>
+            <form id="crear-appointment-form">
+                <label for="appointment-pacienteId">Paciente:</label>
+                <select id="appointment-pacienteId"></select>
+
+                <label for="appointment-medicoId">Médico:</label>
+                <select id="appointment-medicoId"></select>
+
+                <label for="appointment-fecha">Fecha:</label>
+                <select id="appointment-fecha"></select>
+
+                <label for="appointment-hora">Hora:</label>
+                <select id="appointment-hora"></select>
+
+                <label for="appointment-estado">Estado:</label>
+                <input type="text" id="appointment-estado" value="Pendiente" readonly />
+                <button type="submit">Agregar Turno</button>
+            </form>
+        </section>
+
+        <!-- Dashboard -->
+        <section>
+            <h3>Dashboard de Turnos</h3>
+            <canvas id="grafico-turnos" width="400" height="200"></canvas>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div>
+                <strong>Contacto</strong><br />
+                Tel: (0371) 123-4567<br />
+                Email: info@clinicavitalis.com
+            </div>
+            <div>
+                © 2025 Clínica Vitalis. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+</html>

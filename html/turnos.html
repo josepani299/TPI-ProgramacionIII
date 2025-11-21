@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mis turnos - Clínica Vitalis</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="turnosEstilos.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/formTurno.css" />
+  <link rel="stylesheet" href="/css/turnos.css" />
 </head>
 <body>
 
@@ -18,7 +19,7 @@
     <nav>
       <a href="index.html">Inicio</a>
       <a href="turnos.html">Mis turnos</a>
-      <a href="iniciar-sesion.html">Iniciar sesión</a>
+      <a href="iniciarSesion.html">Iniciar sesión</a>
       <a href="#" onclick="confirmarSalida()">Salir</a>
     </nav>
   </header>
@@ -26,7 +27,7 @@
   <section class="login-section">
     <div class="login-container">
       <h2>Mis turnos activos</h2>
-      <div id="lista-turnos">
+      <div id="listaTurnos">
         <!-- Turnos se insertan dinámicamente -->
       </div>
     </div>
@@ -45,6 +46,6 @@
     </div>
   </footer>
 
-  <script src="verTurnos.js"></script>
+  <script src="turnos.js"></script>
 </body>
 </html>

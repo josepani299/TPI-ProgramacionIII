@@ -10,8 +10,10 @@ function validarRegistroCompleto() {
     const nombre = document.getElementById("nombre").value.trim();
     const email = document.getElementById("email").value.trim();
     const clave = document.getElementById("clave").value;
+    const dni = document.getElementById("dni").value;
+    const genero = document.getElementById("genero").value;
 
-    if (!nombre || !email || !clave) {
+    if (!nombre || !email || !clave || !dni || !genero )  {
       mensajeError.textContent = "Todos los campos son obligatorios.";
       return;
     }
@@ -21,7 +23,10 @@ function validarRegistroCompleto() {
       name: nombre, 
       email: email,
       password: clave,
-      role: "USUARIO" 
+      role: "USUARIO",
+      genero: genero,
+      dni: dni
+      
     };
 
     try {

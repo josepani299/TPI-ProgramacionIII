@@ -42,6 +42,14 @@
 
             <form id="crear-usuario-form">
                 <input type="text" placeholder="Nombre" id="nuevo-nombre" required />
+                <label for="genero">Género:</label>
+                    <select id="nuevo-genero" name="nuevo-genero" required>
+                    <option value="">Seleccionar</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="otro">Otro</option>
+                    </select>
+                <input type="text" placeholder="DNI" id="nuevo-dni" required />
                 <input type="email" placeholder="Email" id="nuevo-email" required />
                 <input type="password" placeholder="Contraseña" id="nuevo-password" required />
                 <select id="nuevo-role">

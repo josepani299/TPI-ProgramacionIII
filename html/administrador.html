@@ -42,13 +42,12 @@
 
             <form id="crear-usuario-form">
                 <input type="text" placeholder="Nombre" id="nuevo-nombre" required />
-                <label for="genero">Género:</label>
-                    <select id="nuevo-genero" name="nuevo-genero" required>
-                    <option value="">Seleccionar</option>
+                <select id="nuevo-genero" name="nuevo-genero" required>
+                    <option value="">Genero</option>
                     <option value="femenino">Femenino</option>
                     <option value="masculino">Masculino</option>
                     <option value="otro">Otro</option>
-                    </select>
+                </select>
                 <input type="text" placeholder="DNI" id="nuevo-dni" required />
                 <input type="email" placeholder="Email" id="nuevo-email" required />
                 <input type="password" placeholder="Contraseña" id="nuevo-password" required />
@@ -75,16 +74,22 @@
                 <input type="text" placeholder="Horarios disponibles" id="medico-horarios" required />
                 <button type="submit">Agregar Médico</button>
             </form>
-            
+
         </section>
 
         <!-- Sección Turnos -->
         <section>
             <h3>Gestión de Turnos</h3>
             <div id="appointments-container"></div>
+            <div>
+                <h3>Buscar Paciente por DNI</h3>
+                <input type="text" id="buscar-dni" placeholder="Ingrese DNI">
+                <button id="btn-buscar-dni">Buscar</button>
+                <div id="resultado-busqueda"></div>
+            </div>
             <form id="crear-appointment-form">
                 <label for="appointment-pacienteId">Paciente:</label>
-                <select id="appointment-pacienteId"></select>
+                    <input type="text" name="paciente" id="paciente" readonly>
 
                 <label for="appointment-medicoId">Médico:</label>
                 <select id="appointment-medicoId"></select>

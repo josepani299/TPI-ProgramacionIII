@@ -218,6 +218,54 @@ async function mostrarMedicos() {
     }
 }
 
+// esta funcion me busca un paciente de la lista de ususario teniendo en cuenta su dni
+
+async function buscarPacientes() {
+    try {
+        // Obtener los datos de la API
+        const response = await fetch(API_USERS);
+        const usuarios = await response.json();
+        
+        // Obtener el DNI ingresado
+        const dni = document.getElementById("buscar-dni").value.trim();
+        
+        // Validar que se ingresó un DNI
+        if (!dni) {
+            alert("Por favor ingrese un DNI");
+            return null;
+        }
+        
+        // Buscar el usuario que coincida
+        const usuarioEncontrado = usuarios.find(u => 
+            u.role === "USUARIO" && u.dni === dni
+        );
+        
+        // Mostrar resultado
+        if (usuarioEncontrado) {
+            document.getElementById("paciente").value = usuarioEncontrado.name;
+            alert("Paciente encontrado: " + usuarioEncontrado.name);
+            return usuarioEncontrado;
+        } else {
+            document.getElementById("paciente").value = "";
+            alert("No se encontró ningún paciente con ese DNI");
+            return null;
+        }
+        
+    } catch (error) {
+        console.error("Error al buscar pacientes:", error);
+        alert("Error al buscar. Intenta nuevamente.");
+        return null;
+    }
+}
+var botonBuscarPaciente = document.getElementById("btn-buscar-dni").addEventListener("click",buscarPacientes);
+async function CrearTurno() {
+  // utilizo la funcion para encontrar a el paciente que busco
+  const paciente = buscarPacientes;
+
+  
+}
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
     validarRegistroCompleto();

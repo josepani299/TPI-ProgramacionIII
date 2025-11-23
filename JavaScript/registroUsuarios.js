@@ -198,7 +198,7 @@ async function buscarPaciente() {
 
     // Crear el select con el paciente encontrado
     contenedor.innerHTML = `
-      <label>Paciente encontrado:</label>
+      <p> Paciente:<p>
       <select id="select-paciente">
           <option value="${usuario.id}">
               ${usuario.name}
@@ -294,7 +294,7 @@ async function crearTurno() {
     }
 
     const nuevoTurno = {
-        pacienteId: idPaciente,
+        patientId: idPaciente,
         doctorId: idDoctor,
         fecha: fecha,
         hora: hora,
@@ -319,6 +319,7 @@ async function crearTurno() {
         alert("Error al crear turno");
     }
 }
+
 
 
 

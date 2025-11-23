@@ -1,4 +1,5 @@
-const API_TURNOS = 'https://691b22ae2d8d78557571ac41.mockapi.io/appointments'; // Endpoint de MockAPI para turnos
+const API_TURNOS = 'https://691b22ae2d8d78557571ac41.mockapi.io/appointments';
+const API_MEDICOS = "https://6911e0a752a60f10c81fa459.mockapi.io/docts";
 
 async function cargarMisTurnos() {
   const userId = localStorage.getItem("userId");
@@ -25,9 +26,9 @@ async function cargarMisTurnos() {
       mapaMedicos[m.id] = m.name || m.nombre || ("Médico " + m.id);
     });
 
-    // FILTRAMOS SOLO LOS TURNOS DEL USUARIO
+    // FILTRAMOS SOLO LOS TURNOS DEL USUARIO - USANDO patientId
     const misTurnos = turnos.filter(t =>
-      String(t.pacienteId) === String(userId)
+      String(t.patientId) === String(userId)
     );
 
     if (misTurnos.length === 0) {
@@ -86,7 +87,7 @@ async function cancelarTurno(idTurno) {
       return;
     }
 
-    alert("✔ Turno cancelado");
+    alert("Turno cancelado");
     cargarMisTurnos();
 
   } catch (error) {

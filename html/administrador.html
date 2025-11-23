@@ -122,40 +122,38 @@
             <select id="select-estado">
                 <p>Estado:</p>
                 <option value="">Seleccione un estado</option>
-                <option value="confirmado">Confirmado</option>
-                <option value="reservado">Resevado</option>
-                <option value="cancelado">Cancelado</option>
-            
+                <option value="Confirmado">Confirmado</option>
+                <option value="Reservado">Resevado</option>
+                <option value="Cancelado">Cancelado</option>
+
             </select>
             <br><br>
             <button id="btn-crear-turno" class="btn btn-primary">Crear Turno</button>
 
             <div id="mensaje-turno" style="margin-top: 15px; font-weight: bold; color: green;">
             </div>
-            <form id="crear-appointment-form">
-                <label for="appointment-pacienteId">Paciente:</label>
-                <input type="text" name="paciente" id="paciente" readonly>
 
-                <label for="appointment-medicoId">Médico:</label>
-                <select id="appointment-medicoId"></select>
-
-                <label for="appointment-fecha">Fecha:</label>
-                <select id="appointment-fecha"></select>
-
-                <label for="appointment-hora">Hora:</label>
-                <select id="appointment-hora"></select>
-
-                <label for="appointment-estado">Estado:</label>
-                <input type="text" id="appointment-estado" value="Pendiente" readonly />
-                <button type="submit">Agregar Turno</button>
-            </form>
         </section>
+        <h3>Gestión de Estados de Turnos</h3>
+
+        <table id="tabla-turnos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Paciente</th>
+                    <th>Médico</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-turnos"></tbody>
+        </table>
 
         <!-- Dashboard -->
-        <section>
-            <h3>Dashboard de Turnos</h3>
-            <canvas id="grafico-turnos" width="400" height="200"></canvas>
-        </section>
+        <div id="dashboard-turnos"></div>
+
     </main>
 
     <footer>

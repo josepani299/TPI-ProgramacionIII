@@ -11,7 +11,7 @@
 ul { 
   list-style: none;
 }
-/* Estilo general para formularios */
+
 form {
   display: flex;
   flex-wrap: wrap;
@@ -36,7 +36,7 @@ form select {
   background-color: #ffffff;
 }
 
-/* Botones */
+
 form button {
   padding: 0.6rem 1.2rem;
   background-color: #0077b6;
@@ -47,7 +47,55 @@ form button {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+#btn-buscar-dni {
+    padding: 10px 20px;
+    background: #1769aa;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.2s;
+}
+#btn-buscar-dni:hover {
+    background: #0d4f83;
+}
 
+
+#btn-crear-turno {
+    width: 100%;
+    padding: 14px;
+    background: #27a844;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#btn-crear-turno:hover {
+    background: #1c7e32;
+}
+
+------------------ */
+
+#resultado-busqueda {
+    background: #e3f2fd;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 5px solid #1769aa;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+
+
+p {
+    margin: 5px 0;
+    font-weight: 600;
+    color: #444;
+}
 form button:hover {
   background-color: #48bfe3;
 }

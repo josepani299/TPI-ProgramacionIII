@@ -86,14 +86,21 @@
                 <input type="text" id="buscar-dni" placeholder="Ingrese DNI">
                 <button id="btn-buscar-dni" onclick=buscarPaciente()>Buscar</button>
 
-                <div id="resultado-busqueda"></div>
-            </div>
+                <div id="resultado-busqueda">
+                    <label>Paciente:</label>
+                    <select id="select-paciente">
+                        <option value="">Seleccione un paciente</option>
+                    </select>
+                </div>
 
+            </div>
+            <P>Especialidad</P>
             <select id="select-especialidad">
                 <option value="">Seleccione especialidad</option>
                 <option value="cardiologia">Cardiología</option>
                 <option value="dermatologia">Dermatología</option>
                 <option value="clinica medica">Clínica General</option>
+                <option value="Pediatria">Pediatria</option>
             </select>
             <p>Medico</p>
             <select id="select-medico">

@@ -1,11 +1,10 @@
-const API_USERS = 'https://6911e0a752a60f10c81fa459.mockapi.io/users'; 
 
-// Endpoint de MockAPI para usuarios
-
-const API_TURNOS = 'https://691b22ae2d8d78557571ac41.mockapi.io/appointments';
+const API_USERS = "https://6911e0a752a60f10c81fa459.mockapi.io/users";
+const API_TURNOS = "https://691b22ae2d8d78557571ac41.mockapi.io/appointments";
+const API_MEDICOS = "https://6911e0a752a60f10c81fa459.mockapi.io/docts";
 
 function validarRegistroCompleto() {
-  const formulario = document.querySelector("#crear-usuario-form"); // ID del formulario
+  const formulario = document.querySelector("#crear-usuario-form");
   const mensajeError = document.getElementById("mensaje-error");
 
   formulario.addEventListener("submit", async function (e) {
@@ -16,51 +15,30 @@ function validarRegistroCompleto() {
     const clave = document.getElementById("nuevo-password").value.trim();
     const role = document.getElementById("nuevo-role").value;
 
-    console.log("Nombre:", nombre);
-    console.log("Email:", email);
-    console.log("Clave:", clave);
-    console.log("Rol:", role);
-
     if (!nombre || !email || !clave || !role) {
       mensajeError.textContent = "Todos los campos son obligatorios.";
       return;
     }
 
-    // Crear objeto con los datos del usuario
-    const nuevoUsuario = {
-      name: nombre,
-      email: email,
-      password: clave,
-      role: role
-    };
-
-    console.log("Objeto nuevoUsuario:", nuevoUsuario);
+    const nuevoUsuario = { name: nombre, email: email, password: clave, role: role };
 
     try {
-      // Enviar datos a MockAPI
       const response = await fetch(API_USERS, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(nuevoUsuario)
       });
 
-      console.log("Respuesta de la API:", response);
-      console.log("Estado de la respuesta:", response.status);
-      console.log("Texto de la respuesta:", response.statusText);
-
       if (response.ok) {
         mensajeError.textContent = "";
-        alert("Usuario registrado con éxito!"); // Mensaje de éxito
-        limpiarCampos(); // Limpiar los campos del formulario
+        alert("Usuario registrado con éxito!");
+        limpiarCampos();
       } else {
-        mensajeError.textContent = "Error al crear la cuenta. Intenta nuevamente.";
-        console.error("Error al crear usuario:", response.statusText);
+        mensajeError.textContent = "Error al crear la cuenta.";
       }
     } catch (error) {
-      mensajeError.textContent = "Error de conexión. Intenta nuevamente más tarde.";
-      console.error("Error de conexión:", error);
+      mensajeError.textContent = "Error de conexión.";
+      console.error(error);
     }
   });
 
@@ -71,300 +49,250 @@ function validarRegistroCompleto() {
   }
 }
 
+
 async function mostrarUsuariosAdmin() {
-  const usuariosContainer = document.getElementById("usuarios-container");
-  usuariosContainer.innerHTML = "Listas de Administradores: "; // Limpiar el contenedor
+  const cont = document.getElementById("usuarios-container");
+  cont.innerHTML = "Listas de Administradores: ";
 
   try {
-    const response = await fetch(API_USERS);
-    const usuarios = await response.json();
+    const res = await fetch(API_USERS);
+    const usuarios = await res.json();
+    const admins = usuarios.filter(u => u.role === "ADMIN");
 
-    // Filtrar usuarios con rol "ADMIN"
-    const usuariosAdmin = usuarios.filter(usuario => usuario.role === "ADMIN");
-
-    if (usuariosAdmin.length > 0) {
-      const listaUsuarios = document.createElement("ul");
-
-      usuariosAdmin.forEach(usuario => {
-        const listItem = document.createElement("li");
-        listItem.textContent = `Nombre: ${usuario.name}  ,
-          Email: ${usuario.email}
-         `; // Mostrar la información del usuario
-
-        listaUsuarios.appendChild(listItem);
-      });
-
-      usuariosContainer.appendChild(listaUsuarios);
-    } else {
-      usuariosContainer.textContent = "No hay usuarios administradores registrados.";
+    if (admins.length === 0) {
+      cont.textContent = "No hay usuarios administradores registrados.";
+      return;
     }
 
-  } catch (error) {
-    usuariosContainer.textContent = "Error al obtener la lista de usuarios.";
-    console.error("Error al obtener usuarios:", error);
-  }
-}
-async function mostrarPacientes() {
-  const pacientesContainer = document.getElementById("pacientes-container");
-  pacientesContainer.innerHTML = "Listas de Pacientes: "; // Limpiar el contenedor
-
-  try {
-    const response = await fetch(API_USERS);
-    const usuarios = await response.json();
-
-    // Filtrar usuarios con rol "USUARIO"
-    const pacientes = usuarios.filter(usuario => usuario.role === "USUARIO");
-
-    if (pacientes.length > 0) {
-      const listaPacientes = document.createElement("ul");
-
-      pacientes.forEach(paciente => {
-        const listItem = document.createElement("li");
-        listItem.textContent = `Nombre: ${paciente.name}  ,
-          Email: ${paciente.email}
-         `; // Mostrar la información del usuario
-
-        listaPacientes.appendChild(listItem);
-      });
-
-      pacientesContainer.appendChild(listaPacientes);
-    } else {
-      pacientesContainer.textContent = "No hay pacientes registrados.";
-    }
-
-  } catch (error) {
-    pacientesContainer.textContent = "Error al obtener la lista de pacientes.";
-    console.error("Error al obtener pacientes:", error);
-  }
-}
-
-const API_MEDICOS = 'https://6911e0a752a60f10c81fa459.mockapi.io/docts'; // Endpoint de MockAPI para médicos
-
-async function crearMedico() {
-    const formularioMedico = document.getElementById("crear-medico-form");
-    const medicosContainer = document.getElementById("medicos-container");
-
-    formularioMedico.addEventListener("submit", async function (e) {
-        e.preventDefault();
-
-        const nombre = document.getElementById("medico-nombre").value.trim();
-        const especialidad = document.getElementById("medico-especialidad").value.trim();
-        const horariosDisponibles = document.getElementById("medico-horarios").value.trim();
-
-        // Get the selected dates from the datepicker
-        const selectedDates = $("#medico-dias").datepicker("getDate");
-        const formattedDates = selectedDates ? $.datepicker.formatDate('yy-mm-dd', selectedDates) : "";
-
-        if (!nombre || !especialidad || !formattedDates || !horariosDisponibles) {
-            alert("Todos los campos son obligatorios.");
-            return;
-        }
-
-        const nuevoMedico = {
-            name: nombre,
-            especialidad: especialidad,
-            diasDisponibles: formattedDates,
-            horariosDisponibles: horariosDisponibles
-        };
-
-        try {
-            const response = await fetch(API_MEDICOS, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(nuevoMedico)
-            });
-
-            if (response.ok) {
-                alert("Médico creado con éxito!");
-                formularioMedico.reset(); // Limpiar el formulario
-                mostrarMedicos(); // Refresh the list of medicos
-            } else {
-                alert("Error al crear el médico.");
-                console.error("Error al crear médico:", response.statusText);
-            }
-        } catch (error) {
-            alert("Error de conexión. Intenta nuevamente más tarde.");
-            console.error("Error de conexión:", error);
-        }
+    const ul = document.createElement("ul");
+    admins.forEach(u => {
+      const li = document.createElement("li");
+      li.textContent = `Nombre: ${u.name}, Email: ${u.email}`;
+      ul.appendChild(li);
     });
+
+    cont.appendChild(ul);
+  } catch {
+    cont.textContent = "Error al obtener la lista de usuarios.";
+  }
+}
+
+async function mostrarPacientes() {
+  const cont = document.getElementById("pacientes-container");
+  cont.innerHTML = "Listas de Pacientes: ";
+
+  try {
+    const res = await fetch(API_USERS);
+    const usuarios = await res.json();
+    const pacientes = usuarios.filter(u => u.role === "USUARIO");
+
+    if (pacientes.length === 0) {
+      cont.textContent = "No hay pacientes registrados.";
+      return;
+    }
+
+    const ul = document.createElement("ul");
+    pacientes.forEach(p => {
+      const li = document.createElement("li");
+      li.textContent = `Nombre: ${p.name}, Email: ${p.email}`;
+      ul.appendChild(li);
+    });
+
+    cont.appendChild(ul);
+  } catch {
+    cont.textContent = "Error al obtener la lista de pacientes.";
+  }
+}
+
+
+function crearMedico() {
+  const form = document.getElementById("crear-medico-form");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById("medico-nombre").value.trim();
+    const especialidad = document.getElementById("medico-especialidad").value.trim();
+    const horarios = document.getElementById("medico-horarios").value.trim();
+
+    const fecha = $("#medico-dias").datepicker("getDate");
+    const dias = fecha ? $.datepicker.formatDate("yy-mm-dd", fecha) : "";
+
+    if (!nombre || !especialidad || !dias || !horarios) {
+      alert("Todos los campos son obligatorios.");
+      return;
+    }
+
+    const medico = {
+      name: nombre,
+      especialidad,
+      diasDisponibles: dias,
+      horariosDisponibles: horarios
+    };
+
+    try {
+      const res = await fetch(API_MEDICOS, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(medico)
+      });
+
+      if (res.ok) {
+        alert("Médico creado con éxito!");
+        form.reset();
+        mostrarMedicos();
+      } else {
+        alert("Error al crear el médico.");
+      }
+    } catch {
+      alert("Error de conexión.");
+    }
+  });
 }
 
 async function mostrarMedicos() {
-    const medicosContainer = document.getElementById("medicos-container");
-    medicosContainer.innerHTML = "Lista de Médicos: ";
+  const cont = document.getElementById("medicos-container");
+  cont.innerHTML = "Lista de Médicos: ";
 
-    try {
-        const response = await fetch(API_MEDICOS);
-        const medicos = await response.json();
+  try {
+    const res = await fetch(API_MEDICOS);
+    const medicos = await res.json();
 
-        if (medicos.length > 0) {
-            const listaMedicos = document.createElement("ul");
-
-            medicos.forEach(medico => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `Nombre: ${medico.name}, Especialidad: ${medico.especialidad}, Días: ${medico.diasDisponibles}, Horarios: ${medico.horariosDisponibles}`;
-                listaMedicos.appendChild(listItem);
-            });
-
-            medicosContainer.appendChild(listaMedicos);
-        } else {
-            medicosContainer.textContent = "No hay médicos registrados.";
-        }
-    } catch (error) {
-        medicosContainer.textContent = "Error al obtener la lista de médicos.";
-        console.error("Error al obtener médicos:", error);
+    if (medicos.length === 0) {
+      cont.textContent = "No hay médicos registrados.";
+      return;
     }
+
+    const ul = document.createElement("ul");
+    medicos.forEach(m => {
+      const li = document.createElement("li");
+      li.textContent = `Nombre: ${m.name}, Especialidad: ${m.especialidad}, Días: ${m.diasDisponibles}, Horarios: ${m.horariosDisponibles}`;
+      ul.appendChild(li);
+    });
+
+    cont.appendChild(ul);
+  } catch {
+    cont.textContent = "Error al obtener la lista de médicos.";
+  }
 }
 
-// esta funcion me busca un paciente de la lista de ususario teniendo en cuenta su dni
 
-async function buscarPacientes() {
-    try {
-        // Obtener los datos de la API
-        const response = await fetch(API_USERS);
-        const usuarios = await response.json();
-        
-        // Obtener el DNI ingresado
-        const dni = document.getElementById("buscar-dni").value.trim();
-        
-        // Validar que se ingresó un DNI
-        if (!dni) {
-            alert("Por favor ingrese un DNI");
-            return null;
-        }
-        
-        // Buscar el usuario que coincida
-        const usuarioEncontrado = usuarios.find(u => 
-            u.role === "USUARIO" && u.dni === dni
-        );
-        
-        // Mostrar resultado
-        if (usuarioEncontrado) {
-            document.getElementById("paciente").value = usuarioEncontrado.name;
-            alert("Paciente encontrado: " + usuarioEncontrado.name);
-            return usuarioEncontrado;
-        } else {
-            document.getElementById("paciente").value = "";
-            alert("No se encontró ningún paciente con ese DNI");
-            return null;
-        }
-        
-    } catch (error) {
-        console.error("Error al buscar pacientes:", error);
-        alert("Error al buscar. Intenta nuevamente.");
-        return null;
+async function buscarPaciente() {
+  try {
+    const res = await fetch(API_USERS);
+    const usuarios = await res.json();
+
+    const dni = document.getElementById("buscar-dni").value.trim();
+    if (!dni) return alert("Ingrese un DNI");
+
+    const usuario = usuarios.find(u => u.role === "USUARIO" && u.dni == dni);
+
+    const contenedor = document.getElementById("resultado-busqueda");
+
+    if (!usuario) {
+      contenedor.innerHTML = `<p style="color:red;">No se encontró ningún paciente.</p>`;
+      return;
     }
-}
 
-const API_DOCTORES = "https://6911e0a752a60f10c81fa459.mockapi.io/docts"; // ajuste según tu API
+    // Crear el select con el paciente encontrado
+    contenedor.innerHTML = `
+      <label>Paciente encontrado:</label>
+      <select id="select-paciente">
+          <option value="${usuario.id}">
+              ${usuario.name}
+          </option>
+      </select>
+    `;
+
+    alert("Paciente encontrado: " + usuario.name);
+    return usuario;
+
+  } catch (e) {
+    console.error(e);
+    alert("Error al buscar.");
+    return null;
+  }
+}
 
 async function cargarDoctoresPorEspecialidad() {
-    const especialidad = document.getElementById("select-especialidad").value;
-    const selectMedicos = document.getElementById("select-medico");
+  const esp = document.getElementById("select-especialidad").value;
+  const selectMed = document.getElementById("select-medico");
 
-    // Limpiar select
-    selectMedicos.innerHTML = "<option value=''>Seleccione un médico</option>";
-    // También vaciamos fecha y hora
-    document.getElementById("select-fecha").innerHTML = "<option value=''>Seleccione una fecha</option>";
-    document.getElementById("select-hora").innerHTML = "<option value=''>Seleccione un horario</option>";
+  selectMed.innerHTML = "<option value=''>Seleccione un médico</option>";
+  document.getElementById("select-fecha").innerHTML = "<option value=''>Seleccione una fecha</option>";
+  document.getElementById("select-hora").innerHTML = "<option value=''>Seleccione un horario</option>";
 
+  if (!esp) return;
 
-    if (!especialidad) return; // si no seleccionó nada, no hacer nada
+  try {
+    const res = await fetch(API_MEDICOS);
+    const doctores = await res.json();
+    const filtrados = doctores.filter(d => d.especialidad.toLowerCase() === esp.toLowerCase());
 
-    try {
-        const response = await fetch(API_DOCTORES);
-        const doctores = await response.json();
+    filtrados.forEach(doc => {
+      const op = document.createElement("option");
+      op.value = doc.nombre;
+      op.textContent = doc.name;
+      op.dataset.dias = doc.diasDisponibles;
+      op.dataset.horas = doc.horariosDisponibles;
+      selectMed.appendChild(op);
+    });
 
-        // Filtrar por especialidad
-        const filtrados = doctores.filter(
-            d => d.especialidad.toLowerCase() === especialidad.toLowerCase()
-        );
-
-        // Cargar médicos
-        filtrados.forEach(doc => {
-            const option = document.createElement("option");
-            option.value = doc.nombre;
-            option.textContent = `${doc.name}`;
-            option.dataset.dias = doc.diasDisponibles;
-            option.dataset.horas = doc.horariosDisponibles;
-            selectMedicos.appendChild(option);
-        });
-
-        if (filtrados.length === 0) {
-            alert("No se encontraron médicos con esa especialidad");
-        }
-
-    } catch (error) {
-        console.error("Error cargando doctores:", error);
-        alert("Error al buscar doctores");
-    }
+    if (filtrados.length === 0) alert("No se encontraron médicos con esa especialidad");
+  } catch {
+    alert("Error al buscar doctores");
+  }
 }
 
 function cargarDiasYHorarios() {
-    const selectMedicos = document.getElementById("select-medico");
-    const optionSeleccionada = selectMedicos.options[selectMedicos.selectedIndex];
+  const selectMed = document.getElementById("select-medico");
+  const opt = selectMed.options[selectMed.selectedIndex];
 
-    const dias = optionSeleccionada.dataset.dias;
-    const horas = optionSeleccionada.dataset.horas;
+  const dias = opt.dataset.dias;
+  const horas = opt.dataset.horas;
 
-    const selectFecha = document.getElementById("select-fecha");
-    const selectHora = document.getElementById("select-hora");
+  const selFecha = document.getElementById("select-fecha");
+  const selHora = document.getElementById("select-hora");
 
-    // Resetear selects
-    selectFecha.innerHTML = "<option value=''>Seleccione una fecha</option>";
-    selectHora.innerHTML = "<option value=''>Seleccione una hora</option>";
+  selFecha.innerHTML = "<option value=''>Seleccione una fecha</option>";
+  selHora.innerHTML = "<option value=''>Seleccione una hora</option>";
 
-    // Cargar días (si viniera una lista separada por comas también sirve)
-    if (dias) {
-        dias.split(",").forEach(d => {
-            const op = document.createElement("option");
-            op.value = d.trim();
-            op.textContent = d.trim();
-            selectFecha.appendChild(op);
-        });
-    }
-
-    // Cargar horarios (9-10 → 9:00 y 10:00)
-    if (horas) {
-        horas.split("-").forEach(h => {
-            const op = document.createElement("option");
-            op.value = h.trim();
-            op.textContent = h.trim() + ":00";
-            selectHora.appendChild(op);
-        });
-    }
-}
-
-document.getElementById("select-medico")
-        .addEventListener("change", cargarDiasYHorarios);
-
-// Evento cuando cambia la especialidad
-document.getElementById("select-especialidad")
-        .addEventListener("change", cargarDoctoresPorEspecialidad);
-
-var botonBuscarPaciente = document.getElementById("btn-buscar-dni").addEventListener("click",buscarPacientes);
-async function CrearTurno() {
-  // utilizo la funcion para encontrar a el paciente que busco
-  
-
-
-  
-}
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    validarRegistroCompleto();
-    mostrarUsuariosAdmin();
-    mostrarPacientes();
-    crearMedico(); 
-    mostrarMedicos(); 
-    initializeAppointments(); /// 
-
-    
-    $("#medico-dias").datepicker({
-        dateFormat: 'yy-mm-dd' 
+  if (dias) {
+    dias.split(",").forEach(d => {
+      const o = document.createElement("option");
+      o.value = d.trim();
+      o.textContent = d.trim();
+      selFecha.appendChild(o);
     });
+  }
+
+  if (horas) {
+    horas.split("-").forEach(h => {
+      const o = document.createElement("option");
+      o.value = h.trim();
+      o.textContent = `${h.trim()}:00`;
+      selHora.appendChild(o);
+    });
+  }
+}
+
+
+async function CrearTurno() {
+  // (Aún vacío — cuando lo completes, lo movemos aquí bien ordenado)
+}
+
+document.getElementById("select-medico").addEventListener("change", cargarDiasYHorarios);
+document.getElementById("select-especialidad").addEventListener("change", cargarDoctoresPorEspecialidad);
+document.getElementById("btn-buscar-dni").addEventListener("click", buscarPacientes);
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  validarRegistroCompleto();
+  mostrarUsuariosAdmin();
+  mostrarPacientes();
+  crearMedico();
+  mostrarMedicos();
+
+  $("#medico-dias").datepicker({ dateFormat: "yy-mm-dd" });
 });

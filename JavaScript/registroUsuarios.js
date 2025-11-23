@@ -77,6 +77,7 @@ async function mostrarUsuariosAdmin() {
   }
 }
 
+
 async function mostrarPacientes() {
   const cont = document.getElementById("pacientes-container");
   cont.innerHTML = "Listas de Pacientes: ";
@@ -150,6 +151,7 @@ function crearMedico() {
   });
 }
 
+
 async function mostrarMedicos() {
   const cont = document.getElementById("medicos-container");
   cont.innerHTML = "Lista de Médicos: ";
@@ -176,7 +178,7 @@ async function mostrarMedicos() {
   }
 }
 
-
+// funciones 
 async function buscarPaciente() {
   try {
     const res = await fetch(API_USERS);
@@ -214,6 +216,7 @@ async function buscarPaciente() {
   }
 }
 
+
 async function cargarDoctoresPorEspecialidad() {
   const esp = document.getElementById("select-especialidad").value;
   const selectMed = document.getElementById("select-medico");
@@ -231,7 +234,7 @@ async function cargarDoctoresPorEspecialidad() {
 
     filtrados.forEach(doc => {
       const op = document.createElement("option");
-      op.value = doc.nombre;
+      op.value = doc.id;
       op.textContent = doc.name;
       op.dataset.dias = doc.diasDisponibles;
       op.dataset.horas = doc.horariosDisponibles;
@@ -243,6 +246,7 @@ async function cargarDoctoresPorEspecialidad() {
     alert("Error al buscar doctores");
   }
 }
+
 
 function cargarDiasYHorarios() {
   const selectMed = document.getElementById("select-medico");
@@ -277,16 +281,51 @@ function cargarDiasYHorarios() {
 }
 
 
-async function CrearTurno() {
-  // (Aún vacío — cuando lo completes, lo movemos aquí bien ordenado)
+async function crearTurno() {
+    const idPaciente = document.getElementById("select-paciente").value;
+    const idDoctor = document.getElementById("select-medico").value;
+    const fecha = document.getElementById("select-fecha").value;
+    const hora = document.getElementById("select-hora").value;
+    const estado = document.getElementById("select-estado").value;
+
+    if (!idPaciente || !idDoctor || !fecha || !hora) {
+        alert("Complete todos los campos antes de crear el turno.");
+        return;
+    }
+
+    const nuevoTurno = {
+        pacienteId: idPaciente,
+        doctorId: idDoctor,
+        fecha: fecha,
+        hora: hora,
+        estado: estado
+    };
+
+    try {
+        const res = await fetch(API_TURNOS, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(nuevoTurno)
+        });
+
+        if (!res.ok) throw new Error("Error al crear turno");
+
+        alert("Turno creado exitosamente 🎉");
+
+    } catch (err) {
+        console.error(err);
+        alert("Error al crear turno");
+    }
 }
 
+
+
+document.getElementById("btn-crear-turno").addEventListener("click", crearTurno);
 document.getElementById("select-medico").addEventListener("change", cargarDiasYHorarios);
 document.getElementById("select-especialidad").addEventListener("change", cargarDoctoresPorEspecialidad);
-document.getElementById("btn-buscar-dni").addEventListener("click", buscarPacientes);
-
-
-
+document.getElementById("btn-buscar-dni").addEventListener("click", buscarPaciente);
 document.addEventListener("DOMContentLoaded", function () {
   validarRegistroCompleto();
   mostrarUsuariosAdmin();

@@ -87,7 +87,7 @@
                 <button id="btn-buscar-dni" onclick=buscarPaciente()>Buscar</button>
 
                 <div id="resultado-busqueda">
-                    <label>Paciente:</label>
+                    <P>Paciente</P>
                     <select id="select-paciente">
                         <option value="">Seleccione un paciente</option>
                     </select>
@@ -117,6 +117,15 @@
             <select id="select-hora">
                 <p>Hora:</p>
                 <option value="">Seleccione un horario</option>
+            </select>
+            <p>Estado</p>
+            <select id="select-estado">
+                <p>Estado:</p>
+                <option value="">Seleccione un estado</option>
+                <option value="confirmado">Confirmado</option>
+                <option value="reservado">Resevado</option>
+                <option value="cancelado">Cancelado</option>
+            
             </select>
             <br><br>
             <button id="btn-crear-turno" class="btn btn-primary">Crear Turno</button>

@@ -14,13 +14,15 @@ function validarRegistroCompleto() {
     const email = document.getElementById("nuevo-email").value.trim();
     const clave = document.getElementById("nuevo-password").value.trim();
     const role = document.getElementById("nuevo-role").value;
+    const dni = document.getElementById("nuevo-dni").value;
+    const genero = document.getElementById("nuevo-genero").value;
 
-    if (!nombre || !email || !clave || !role) {
+    if (!nombre || !email || !clave || !role || !dni ||!genero ) {
       mensajeError.textContent = "Todos los campos son obligatorios.";
       return;
     }
 
-    const nuevoUsuario = { name: nombre, email: email, password: clave, role: role };
+    const nuevoUsuario = { name: nombre, email: email, password: clave, role: role, dni: dni, genero:genero};
 
     try {
       const response = await fetch(API_USERS, {
@@ -312,7 +314,7 @@ async function crearTurno() {
 
         if (!res.ok) throw new Error("Error al crear turno");
 
-        alert("Turno creado exitosamente 🎉");
+        alert("Turno creado exitosamente ");
 
     } catch (err) {
         console.error(err);

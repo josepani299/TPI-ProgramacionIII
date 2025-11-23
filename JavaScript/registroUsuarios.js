@@ -178,7 +178,7 @@ async function mostrarMedicos() {
   }
 }
 
-// funciones 
+
 async function buscarPaciente() {
   try {
     const res = await fetch(API_USERS);

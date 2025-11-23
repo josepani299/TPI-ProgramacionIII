@@ -69,7 +69,7 @@ async function mostrarUsuariosAdmin() {
     const ul = document.createElement("ul");
     admins.forEach(u => {
       const li = document.createElement("li");
-      li.textContent = `Nombre: ${u.name}, Email: ${u.email}`;
+      li.textContent = `Nombre: ${u.name},    Email: ${u.email} `;
       ul.appendChild(li);
     });
 
@@ -78,6 +78,7 @@ async function mostrarUsuariosAdmin() {
     cont.textContent = "Error al obtener la lista de usuarios.";
   }
 }
+
 
 
 async function mostrarPacientes() {

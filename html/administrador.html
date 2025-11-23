@@ -84,12 +84,41 @@
             <div>
                 <h3>Buscar Paciente por DNI</h3>
                 <input type="text" id="buscar-dni" placeholder="Ingrese DNI">
-                <button id="btn-buscar-dni">Buscar</button>
+                <button id="btn-buscar-dni" onclick=buscarPaciente()>Buscar</button>
+
                 <div id="resultado-busqueda"></div>
+            </div>
+
+            <select id="select-especialidad">
+                <option value="">Seleccione especialidad</option>
+                <option value="cardiologia">Cardiología</option>
+                <option value="dermatologia">Dermatología</option>
+                <option value="clinica medica">Clínica General</option>
+            </select>
+            <p>Medico</p>
+            <select id="select-medico">
+
+                <option value="">Seleccione un médico</option>
+            </select>
+
+            <p>Fecha:</p>
+            <select id="select-fecha">
+
+                <option value="">Seleccione una fecha</option>
+            </select>
+            <p>Hora:</p>
+            <select id="select-hora">
+                <p>Hora:</p>
+                <option value="">Seleccione un horario</option>
+            </select>
+            <br><br>
+            <button id="btn-crear-turno" class="btn btn-primary">Crear Turno</button>
+
+            <div id="mensaje-turno" style="margin-top: 15px; font-weight: bold; color: green;">
             </div>
             <form id="crear-appointment-form">
                 <label for="appointment-pacienteId">Paciente:</label>
-                    <input type="text" name="paciente" id="paciente" readonly>
+                <input type="text" name="paciente" id="paciente" readonly>
 
                 <label for="appointment-medicoId">Médico:</label>
                 <select id="appointment-medicoId"></select>

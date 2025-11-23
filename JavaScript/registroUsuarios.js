@@ -257,10 +257,98 @@ async function buscarPacientes() {
         return null;
     }
 }
+
+const API_DOCTORES = "https://6911e0a752a60f10c81fa459.mockapi.io/docts"; // ajuste según tu API
+
+async function cargarDoctoresPorEspecialidad() {
+    const especialidad = document.getElementById("select-especialidad").value;
+    const selectMedicos = document.getElementById("select-medico");
+
+    // Limpiar select
+    selectMedicos.innerHTML = "<option value=''>Seleccione un médico</option>";
+    // También vaciamos fecha y hora
+    document.getElementById("select-fecha").innerHTML = "<option value=''>Seleccione una fecha</option>";
+    document.getElementById("select-hora").innerHTML = "<option value=''>Seleccione un horario</option>";
+
+
+    if (!especialidad) return; // si no seleccionó nada, no hacer nada
+
+    try {
+        const response = await fetch(API_DOCTORES);
+        const doctores = await response.json();
+
+        // Filtrar por especialidad
+        const filtrados = doctores.filter(
+            d => d.especialidad.toLowerCase() === especialidad.toLowerCase()
+        );
+
+        // Cargar médicos
+        filtrados.forEach(doc => {
+            const option = document.createElement("option");
+            option.value = doc.nombre;
+            option.textContent = `${doc.name}`;
+            option.dataset.dias = doc.diasDisponibles;
+            option.dataset.horas = doc.horariosDisponibles;
+            selectMedicos.appendChild(option);
+        });
+
+        if (filtrados.length === 0) {
+            alert("No se encontraron médicos con esa especialidad");
+        }
+
+    } catch (error) {
+        console.error("Error cargando doctores:", error);
+        alert("Error al buscar doctores");
+    }
+}
+
+function cargarDiasYHorarios() {
+    const selectMedicos = document.getElementById("select-medico");
+    const optionSeleccionada = selectMedicos.options[selectMedicos.selectedIndex];
+
+    const dias = optionSeleccionada.dataset.dias;
+    const horas = optionSeleccionada.dataset.horas;
+
+    const selectFecha = document.getElementById("select-fecha");
+    const selectHora = document.getElementById("select-hora");
+
+    // Resetear selects
+    selectFecha.innerHTML = "<option value=''>Seleccione una fecha</option>";
+    selectHora.innerHTML = "<option value=''>Seleccione una hora</option>";
+
+    // Cargar días (si viniera una lista separada por comas también sirve)
+    if (dias) {
+        dias.split(",").forEach(d => {
+            const op = document.createElement("option");
+            op.value = d.trim();
+            op.textContent = d.trim();
+            selectFecha.appendChild(op);
+        });
+    }
+
+    // Cargar horarios (9-10 → 9:00 y 10:00)
+    if (horas) {
+        horas.split("-").forEach(h => {
+            const op = document.createElement("option");
+            op.value = h.trim();
+            op.textContent = h.trim() + ":00";
+            selectHora.appendChild(op);
+        });
+    }
+}
+
+document.getElementById("select-medico")
+        .addEventListener("change", cargarDiasYHorarios);
+
+// Evento cuando cambia la especialidad
+document.getElementById("select-especialidad")
+        .addEventListener("change", cargarDoctoresPorEspecialidad);
+
 var botonBuscarPaciente = document.getElementById("btn-buscar-dni").addEventListener("click",buscarPacientes);
 async function CrearTurno() {
   // utilizo la funcion para encontrar a el paciente que busco
-  const paciente = buscarPacientes;
+  
+
 
   
 }

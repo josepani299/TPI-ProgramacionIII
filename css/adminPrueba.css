@@ -1,0 +1,333 @@
+/* Panel de Administración - Clínica Vitalis */
+
+.admin-panel {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.admin-panel h2 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.admin-panel section {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-panel section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.admin-panel h3 {
+  color: #34495e;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #3498db;
+  font-weight: 600;
+}
+
+/* Formularios */
+.admin-panel form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.admin-panel input[type="text"],
+.admin-panel input[type="email"],
+.admin-panel input[type="password"],
+.admin-panel select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.admin-panel input:focus,
+.admin-panel select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.admin-panel button[type="submit"],
+.admin-panel .btn {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-panel button[type="submit"]:hover,
+.admin-panel .btn:hover {
+  background: linear-gradient(135deg, #2980b9 0%, #1c5985 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.admin-panel .btn-primary {
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+}
+
+.admin-panel .btn-primary:hover {
+  background: linear-gradient(135deg, #229954 0%, #1e8449 100%);
+  box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+}
+
+/* Contenedores */
+#usuarios-container,
+#pacientes-container,
+#medicos-container,
+#appointments-container {
+  margin-top: 20px;
+}
+
+/* Búsqueda de paciente */
+#resultado-busqueda {
+  margin-top: 20px;
+  padding: 20px;
+  background: #ecf0f1;
+  border-radius: 8px;
+}
+
+#buscar-dni {
+  margin-right: 10px;
+}
+
+#btn-buscar-dni {
+  padding: 10px 25px;
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+#btn-buscar-dni:hover {
+  background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Selectores */
+.admin-panel p {
+  margin-top: 20px;
+  margin-bottom: 8px;
+  color: #34495e;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Tabla de turnos */
+#tabla-turnos {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+#tabla-turnos thead {
+  background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+  color: white;
+}
+
+#tabla-turnos th {
+  padding: 18px 15px;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+#tabla-turnos tbody tr {
+  border-bottom: 1px solid #ecf0f1;
+  transition: background-color 0.2s ease;
+}
+
+#tabla-turnos tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+#tabla-turnos td {
+  padding: 15px;
+  color: #2c3e50;
+}
+
+#tabla-turnos tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* Mensaje de turno */
+#mensaje-turno {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#mensaje-turno.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+#mensaje-turno.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Dashboard */
+#dashboard-turnos {
+  margin-top: 30px;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Días de médico */
+#medico-dias {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+}
+
+#medico-dias label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  background: #ecf0f1;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#medico-dias label:hover {
+  background: #3498db;
+  color: white;
+}
+
+#medico-dias input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .admin-panel {
+    padding: 0 15px;
+  }
+
+  .admin-panel h2 {
+    font-size: 2rem;
+  }
+
+  .admin-panel h3 {
+    font-size: 1.5rem;
+  }
+
+  .admin-panel form {
+    grid-template-columns: 1fr;
+  }
+
+  #tabla-turnos {
+    font-size: 0.9rem;
+  }
+
+  #tabla-turnos th,
+  #tabla-turnos td {
+    padding: 10px 8px;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-panel section {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Estados en tabla */
+.estado-confirmado {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.estado-reservado {
+  color: #f39c12;
+  font-weight: 600;
+}
+
+.estado-cancelado {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+/* Botones de acción en tabla */
+.admin-panel .btn-accion {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  margin-right: 5px;
+  border-radius: 6px;
+}
+
+.admin-panel .btn-confirmar {
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+}
+
+.admin-panel .btn-cancelar {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.admin-panel .btn-eliminar {
+  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+}

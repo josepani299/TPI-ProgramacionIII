@@ -1,60 +1,100 @@
 const API_TURNOS = 'https://691b22ae2d8d78557571ac41.mockapi.io/appointments'; // Endpoint de MockAPI para turnos
 
-async function mostrarTurnos() {
-  const lista = document.getElementById("listaTurnos");
-  lista.innerHTML = ""; // Limpiar la lista
+async function cargarMisTurnos() {
+  const userId = localStorage.getItem("userId");
+  const contenedor = document.getElementById("listaTurnos");
+
+  contenedor.innerHTML = "<p>Cargando tus turnos...</p>";
+
+  if (!userId) {
+    contenedor.innerHTML = "<p style='color:red'>Error: no hay usuario logueado</p>";
+    return;
+  }
 
   try {
-    // Obtener el ID del usuario actual (simulado)
-    const userId = 1; // Reemplazar con la lógica real para obtener el ID del usuario
+    const [resTurnos, resMedicos] = await Promise.all([
+      fetch(API_TURNOS),
+      fetch(API_MEDICOS)
+    ]);
 
-    // Obtener los turnos del usuario desde MockAPI
-    const response = await fetch(`${API_TURNOS}?pacienteId=${userId}`);
-    const turnos = await response.json();
+    const turnos = await resTurnos.json();
+    const medicos = await resMedicos.json();
 
-    if (turnos.length === 0) {
-      lista.innerHTML = "<p>No tenés turnos activos.</p>"; // Display message if no appointments
+    const mapaMedicos = {};
+    medicos.forEach(m => {
+      mapaMedicos[m.id] = m.name || m.nombre || ("Médico " + m.id);
+    });
+
+    // FILTRAMOS SOLO LOS TURNOS DEL USUARIO
+    const misTurnos = turnos.filter(t =>
+      String(t.pacienteId) === String(userId)
+    );
+
+    if (misTurnos.length === 0) {
+      contenedor.innerHTML = "<p>No tenés turnos activos.</p>";
       return;
     }
 
-    turnos.forEach((turno) => {
-      const div = document.createElement("div");
-      div.className = "especialidad";
-      div.innerHTML = `
-        <h3>${turno.especialidad}</h3>
-        <p><strong>Profesional:</strong> ${turno.profesional}</p>
-        <p><strong>Fecha:</strong> ${turno.fecha}</p>
-        <p><strong>Hora:</strong> ${turno.hora}</p>
-        <button onclick="cancelarTurno('${turno.id}')">Cancelar turno</button>
+    // ARMAMOS LA LISTA
+    contenedor.innerHTML = misTurnos.map(t => {
+      return `
+        <div class="turno-card">
+          <p><strong>ID Turno:</strong> ${t.id}</p>
+          <p><strong>Médico:</strong> ${mapaMedicos[t.doctorId] || "Desconocido"}</p>
+          <p><strong>Fecha:</strong> ${t.fecha}</p>
+          <p><strong>Hora:</strong> ${t.hora}</p>
+          <p><strong>Estado:</strong> ${t.estado}</p>
+
+          ${t.estado !== "Cancelado" ? `
+          <button onclick="cancelarTurno('${t.id}')"
+                  class="btn-cancelar">
+            Cancelar turno
+          </button>
+          ` : `<p style="color:red;"><strong>Este turno está cancelado</strong></p>`}
+        </div>
       `;
-      lista.appendChild(div);
-    });
-  } catch (error) {
-    console.error("Error al obtener turnos:", error);
-    lista.innerHTML = "<p>Error al obtener la lista de turnos. Intenta nuevamente más tarde.</p>";
+    }).join("");
+
+  } catch (err) {
+    console.error(err);
+    contenedor.innerHTML = "<p style='color:red'>Error al cargar los turnos</p>";
   }
 }
 
-async function cancelarTurno(turnoId) {
+async function cancelarTurno(idTurno) {
   try {
-    // Eliminar el turno de MockAPI
-    const response = await fetch(`${API_TURNOS}/${turnoId}`, {
-      method: 'DELETE'
+    // 1. Traer el turno
+    const resGet = await fetch(`${API_TURNOS}/${idTurno}`);
+    if (!resGet.ok) {
+      alert("No se pudo obtener el turno.");
+      return;
+    }
+    const turno = await resGet.json();
+
+    // 2. Cambiar estado
+    turno.estado = "Cancelado";
+
+    // 3. Guardar (MockAPI necesita PUT del objeto entero)
+    const resPut = await fetch(`${API_TURNOS}/${idTurno}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(turno)
     });
 
-    if (response.ok) {
-      alert("Turno cancelado correctamente.");
-      mostrarTurnos(); // Refrescar la lista de turnos
-    } else {
-      alert("Error al cancelar el turno.");
-      console.error("Error al cancelar turno:", response.statusText);
+    if (!resPut.ok) {
+      alert("Error al cancelar turno");
+      return;
     }
+
+    alert("✔ Turno cancelado");
+    cargarMisTurnos();
+
   } catch (error) {
-    console.error("Error de conexión:", error);
-    alert("Error de conexión. Intenta nuevamente más tarde.");
+    console.error(error);
+    alert("Error al conectar con MockAPI");
   }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  mostrarTurnos();
+  cargarMisTurnos();
 });

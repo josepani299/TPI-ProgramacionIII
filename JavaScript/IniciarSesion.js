@@ -21,7 +21,11 @@ async function validarSesion() {
       if (usuarioEncontrado) {
         mensajeError.textContent = ""; // limpia el mensaje
         alert("Inicio de sesión exitoso. ¡Bienvenido!");
-        // Guardar la información del usuario en localStorage (opcional)
+        // Guardar usuario completo
+        localStorage.setItem('user', JSON.stringify(usuarioEncontrado));
+
+        // GUARDAR EL ID DEL USUARIO PARA MOSTRAR SUS TURNOS
+        localStorage.setItem("userId", usuarioEncontrado.id);
         localStorage.setItem('user', JSON.stringify(usuarioEncontrado));
 
         // Redirigir según el rol

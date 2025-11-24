@@ -51,7 +51,7 @@ async function cargarDoctores() {
       });
     });
 
-    // Evento: cambio de doctor
+    //  cambio de doctor
     doctorSelect.addEventListener('change', () => {
       const medicoId = doctorSelect.value;
       const medico = medicos.find(m => m.id === medicoId);
@@ -87,7 +87,7 @@ async function cargarDoctores() {
   }
 }
 
-// Evento: cambio de especialidad
+//  cambio de especialidad
 especialidadSelect.addEventListener('change', () => {
   const especialidad = especialidadSelect.value.toLowerCase();
   doctorSelect.innerHTML = '<option value="">Seleccionar</option>';

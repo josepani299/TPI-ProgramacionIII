@@ -94,7 +94,7 @@ async function crearAppointment() {
     const hora = document.getElementById("appointment-hora").value;
     const estado = document.getElementById("appointment-estado").value;
 
-    const patientId = localStorage.getItem("userId"); // ✅ usar patientId del usuario logueado
+    const patientId = localStorage.getItem("userId"); 
 
     if (!pacienteId || !medicoId || !fecha || !hora || !estado) {
       alert("Todos los campos son obligatorios.");
@@ -102,7 +102,7 @@ async function crearAppointment() {
     }
 
     const nuevoAppointment = {
-      patientId,        // ✅ campo correcto en MockAPI
+      patientId,        
       doctorId: medicoId,
       fecha,
       hora,
@@ -119,7 +119,7 @@ async function crearAppointment() {
       if (response.ok) {
         alert("✅ Turno creado con éxito!");
         formularioAppointment.reset();
-        mostrarAppointments(); // refrescar lista
+        mostrarAppointments(); 
       } else {
         alert("Error al crear el turno.");
         console.error("Error al crear turno:", response.statusText);

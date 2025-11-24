@@ -26,6 +26,8 @@ async function validarSesion() {
 
         // GUARDAR EL ID DEL USUARIO PARA MOSTRAR SUS TURNOS
         localStorage.setItem("userId", usuarioEncontrado.id);
+        localStorage.setItem("usuarioLogueado", "true");
+        localStorage.setItem("usuarioEmail", usuarioEncontrado.email);
         localStorage.setItem('user', JSON.stringify(usuarioEncontrado));
 
         // Redirigir según el rol
